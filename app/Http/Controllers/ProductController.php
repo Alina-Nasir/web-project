@@ -22,5 +22,8 @@ class ProductController extends Controller
         return view('products',['products'=>$products]);
     }
 
-    
+    public function description(Request $request){
+        $productId = $request->input('id');
+        return view('productDescription',['productId'=>$productId]);
+    }
 }

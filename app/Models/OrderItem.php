@@ -9,7 +9,7 @@ use App\Models\Product;
 class OrderItem extends Model
 {
     use HasFactory;
-    protected $table = 'orderItems';
+    protected $table = 'order_items';
     protected $primaryKey = 'orderItemId';
     public $timestamps = false;
 

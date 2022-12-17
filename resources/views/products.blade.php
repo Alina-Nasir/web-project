@@ -342,8 +342,9 @@
 								<!--/ End Shop Top -->
 							</div>
 						</div>
-        
+                        
 						<div class="row">
+						
                             @foreach($products as $product)
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="single-product">
@@ -357,13 +358,15 @@
 												<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
 												<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 												<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+												<input type='hidden' value='{{$product->productId}}' name='productId'></input>
 											</div>
 											<div class="product-action-2">
-												@auth
-												<a title="Add to cart" href="{{url('/cart')}}">Add to cart</a>
-												@else
-												<a title="Add to cart" href="{{url('login')}}">Add to cart</a>
-												@endauth
+											<form action="{{ url('/description') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" value="{{ $product->productId }}" name="id"></input>
+                        
+                        <input type='submit' class="px-4 py-2 text-white bg-blue-800 rounded" value='Add to Cart'></input>
+</form>
 											</div>
 										</div>
 									</div>
@@ -377,7 +380,9 @@
 							</div>
 							
 							@endforeach
+						
 						</div>
+						
 					</div>
 				</div>
 			</div>

@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use App\Models\Category;
-use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +21,16 @@ use App\Http\Controllers\CheckoutController;
 //});
 
 Route::view("/","welcome");
-Route::view("/cart","cart");
-Route::view("/checkout","checkout");
+//Route::view("/cart","cart");
+Route::post("/description",[App\Http\Controllers\ProductController::class,'description']);
+Route::post("/add-to-cart",[App\Http\Controllers\CartController::class,'addtocart']);
+Route::get('/cart',[App\Http\Controllers\CartController::class,'index']);
+Route::post('update-to-cart',[App\Http\Controllers\CartController::class,'updatetocart']);
+
+//Route::view("/checkout",'checkout'); //just for testing
+
+Route::get('/checkout',[App\Http\Controllers\CheckoutController::class,'getCheckout'])->middleware(['auth', 'verified']);
+Route::post('/checkout/order',[App\Http\Controllers\CheckoutController::class,'placeOrder'])->name('checkout.place.order');
 
 Route::group(['middleware'=>'guest'], function(){
     Route::get('login',[AuthController::class, 'index'])->name('login');
@@ -46,11 +53,7 @@ Route::group(['middleware'=>'auth'], function(){
 
 Route::get('{userType}',[App\Http\Controllers\ProductController::class,'index']);
 Route::get('/{userType}/{categoryId}',[App\Http\Controllers\ProductController::class,'category']);
-Route::get('/checkout',[App\Http\Controllers\CheckoutController::class,'getCheckout'])->middleware(['auth', 'verified']);
-Route::post('/checkout/order',[App\Http\Controllers\CheckoutController::class,'placeOrder'])->name('checkout.place.order');
-Route::post("/description",[App\Http\Controllers\ProductController::class,'description']);
-Route::post("/add-to-cart",[App\Http\Controllers\CartController::class,'addtocart']);
-Route::get('/cart',[App\Http\Controllers\CartController::class,'index']);
-Route::post('update-to-cart',[App\Http\Controllers\CartController::class,'updatetocart']);
+
+
 
 
