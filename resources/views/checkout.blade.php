@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                             <form action="{{ route('checkout.place.order') }}" method="POST" role="form">
-                            @csrf
+                                @csrf
                                 <div class="mb-3">
                                     <label for="cardholder-name" class="form-label">Cardholder's Name:</label>
                                     <input class="form-control" name="cardholder-name" id="cardholder-name" placeholder="Faiz Kamal">
@@ -49,6 +49,7 @@
                                         <input class="form-control" for="cvv" name="cvv" name="cvv">
                                     </div>
                                 </div>
+                            
                         </div>
                     </div>
                     <div class="col-md-5">
@@ -77,7 +78,7 @@
                             <hr>
                             <div class="row lower">
                                 <div class="col text-left">Subtotal</div>
-                                <div class="col text-right">$ 59.98</div>
+                                <div class="col text-right">$59.89</div>
                             </div>
                             <div class="row lower">
                                 <div class="col text-left">Delivery</div>
@@ -90,7 +91,7 @@
                             <button type="submit" class="btn btn-primary">Place Order</button>
                         </div>
                     </div>
-            </form>
+                    </form>
                 </div>
             </div>
 

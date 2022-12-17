@@ -76,6 +76,7 @@
 	<!-- Easing JS -->
 	<script src="{{url('js/easing.js')}}"></script> 
 	<!-- Active JS -->
-	<script src="{{url('js/active.js')}}"></script> 
+	<script src="{{url('js/active.js')}}"></script>
+	<script src="{{url('js/custom.js')}}"></script> 
 </body>
 </html>

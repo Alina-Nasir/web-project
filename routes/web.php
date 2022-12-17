@@ -48,6 +48,9 @@ Route::get('{userType}',[App\Http\Controllers\ProductController::class,'index'])
 Route::get('/{userType}/{categoryId}',[App\Http\Controllers\ProductController::class,'category']);
 Route::get('/checkout',[App\Http\Controllers\CheckoutController::class,'getCheckout'])->middleware(['auth', 'verified']);
 Route::post('/checkout/order',[App\Http\Controllers\CheckoutController::class,'placeOrder'])->name('checkout.place.order');
-
+Route::post("/description",[App\Http\Controllers\ProductController::class,'description']);
+Route::post("/add-to-cart",[App\Http\Controllers\CartController::class,'addtocart']);
+Route::get('/cart',[App\Http\Controllers\CartController::class,'index']);
+Route::post('update-to-cart',[App\Http\Controllers\CartController::class,'updatetocart']);
 
 

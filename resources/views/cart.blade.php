@@ -1,4 +1,7 @@
 @extends('master')
+<head>
+<meta name='csrf-token' content='{{ csrf_token()}}'>
+</head>
 <body class="js">
 	
 	<!-- Preloader -->
@@ -120,7 +123,7 @@
 												<span>Total</span>
 												<span class="total-amount">$134.00</span>
 											</div>
-											<a href="#" class="btn animate">Checkout</a>
+											<a href="checkout.html" class="btn animate">Checkout</a>
 										</div>
 									</div>
 									<!--/ End Shopping Item -->
@@ -209,84 +212,46 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td>
+                        @php $total="0" @endphp
+                        @if(isset($cart_data))
+                         @if(Cookie::get('shopping_cart'))
+                         
+    
+                         @foreach ($cart_data as $data)
+                         @php $item_total="0" @endphp
+							<tr class='cartpage'>
+								<td class="image" data-title="No"><img src="{{url('/images/'.$data['item_image'])}}" alt="#"></td>
 								<td class="product-des" data-title="Description">
-									<p class="product-name"><a href="#">Women Dress</a></p>
+									<p class="product-name"><a href="#">{{ $data['item_name'] }}</a></p>
 									<p class="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
 								</td>
-								<td class="price" data-title="Price"><span>$110.00 </span></td>
+								<td class="price" data-title="Price"><span>${{$data['item_price']}} </span></td>
 								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<div class="input-group">
+                                <input type="hidden" class="product_id" value="{{ $data['item_id'] }}" >
+									<div class="quantity input-group">
 										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+											<button type="button" class="changeQuantity btn btn-primary btn-number" data-type="minus" data-field="{{$data['item_name']}}">
 												<i class="ti-minus"></i>
 											</button>
 										</div>
-										<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="100" value="1">
+										<input type="text" name="{{$data['item_name']}}" class="qty-input input-number"  data-min="1" data-max="100" value="{{$data['item_quantity']}}">
 										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+											<button type="button" class="changeQuantity btn btn-primary btn-number" data-type="plus" data-field="{{$data['item_name']}}">
 												<i class="ti-plus"></i>
 											</button>
 										</div>
 									</div>
 									<!--/ End Input Order -->
 								</td>
-								<td class="total-amount" data-title="Total"><span>$220.88</span></td>
+                                @php $item_total = ($data["item_quantity"] * $data["item_price"]) @endphp
+								<td class="total-amount" data-title="Total"><span>${{$data["item_quantity"] * $data["item_price"]}}</span></td>
 								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
+                                @php $total = $total + ($data["item_quantity"] * $data["item_price"]) @endphp
 							</tr>
-							<tr>
-								<td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td>
-								<td class="product-des" data-title="Description">
-									<p class="product-name"><a href="#">Women Dress</a></p>
-									<p class="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
-								</td>
-								<td class="price" data-title="Price"><span>$110.00 </span></td>
-								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<div class="input-group">
-										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[2]">
-												<i class="ti-minus"></i>
-											</button>
-										</div>
-										<input type="text" name="quant[2]" class="input-number"  data-min="1" data-max="100" value="2">
-										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[2]">
-												<i class="ti-plus"></i>
-											</button>
-										</div>
-									</div>
-									<!--/ End Input Order -->
-								</td>
-								<td class="total-amount" data-title="Total"><span>$220.88</span></td>
-								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
-							</tr>
-							<tr>
-								<td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td>
-								<td class="product-des" data-title="Description">
-									<p class="product-name"><a href="#">Women Dress</a></p>
-									<p class="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
-								</td>
-								<td class="price" data-title="Price"><span>$110.00 </span></td>
-								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<div class="input-group">
-										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[3]">
-												<i class="ti-minus"></i>
-											</button>
-										</div>
-										<input type="text" name="quant[3]" class="input-number"  data-min="1" data-max="100" value="3">
-										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[3]">
-												<i class="ti-plus"></i>
-											</button>
-										</div>
-									</div>
-									<!--/ End Input Order -->
-								</td>
-								<td class="total-amount" data-title="Total"><span>$220.88</span></td>
-								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
-							</tr>
+                            @endforeach
+                          @endif
+                          @endif
+
 						</tbody>
 					</table>
 					<!--/ End Shopping Summery -->
@@ -313,13 +278,14 @@
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li>Cart Subtotal<span>$330.00</span></li>
+										<li>Cart Subtotal<span>${{$total}}</span></li>
 										<li>Shipping<span>Free</span></li>
 										<li>You Save<span>$20.00</span></li>
 										<li class="last">You Pay<span>$310.00</span></li>
 									</ul>
 									<div class="button5">
-										<a href="{{ url('/checkout') }}" class="btn">Checkout</a>
+                                    <input type="hidden" name='grandTotal' value="{{ $total}}" >
+										<a href="{{url('/checkout')}}" class="btn">Checkout</a>
 										<a href="#" class="btn">Continue shopping</a>
 									</div>
 								</div>
