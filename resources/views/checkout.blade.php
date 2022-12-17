@@ -22,7 +22,7 @@
                     <div class="col-md-7">
                         <div class="left border">
                             <div class="row upper">
-                                <span class="header">Payment</span>
+                                <span class="header">Payment Details</span>
                                 <div class="icons">
                                     <img src="https://img.icons8.com/color/48/000000/visa.png"/>
                                     <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png"/>
@@ -32,21 +32,21 @@
                             <form action="{{ route('checkout.place.order') }}" method="POST" role="form">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="cardholder-name" class="form-label">Cardholder's Name:</label>
-                                    <input class="form-control" name="cardholder-name" id="cardholder-name" placeholder="Faiz Kamal">
+                                    <label for="fname" class="form-label">Customers Name:</label>
+                                    <input class="form-control" name="fname" id="fname" placeholder="{{Auth::user()->fname}} {{Auth::user()->lname}}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="card-nmbr" class="form-label">Card Number:</label>
-                                    <input class="form-control" name="card-nmbr" id="card-nmbr" placeholder="0900 7860 1234 5678">
+                                    <label for="house_no" class="form-label">House no:</label>
+                                    <input class="form-control" name="house_no" id="house_no" placeholder="{{Auth::user()->house_no}}">
                                 </div>
-                                <div class="row">
+                                <div class="mb-3">
                                     <div class="col-4">
-                                        <label for="expiry-date">Expiry date:</label>
-                                        <input class="form-control" for="expiry-date" name="expiry-date" name="expiry-date" placeholder="YY/MM">
+                                        <label for="postal_code">Postal Code:</label>
+                                        <input class="form-control" for="postal_code" name="postal_code" name="postal_code" placeholder="{{Auth::user()->postal_code}}">
                                     </div>
-                                    <div class="col-4">
-                                        <label for="cvv">CVV:</label>
-                                        <input class="form-control" for="cvv" name="cvv" name="cvv">
+                                    <div class="mb-3">
+                                        <label for="email">Email:</label>
+                                        <input class="form-control" for="email" name="email" placeholder="{{Auth::user()->email}}">
                                     </div>
                                 </div>
                             
@@ -54,31 +54,30 @@
                     </div>
                     <div class="col-md-5">
                         <div class="right border">
-                            <div class="header">Order Summary</div>
+                            <div class="header">Order Summary</div> 
+                        @if(isset($cart_data))
+                         @if(Cookie::get('shopping_cart'))
+                         @foreach ($cart_data as $data)
+
                             <div class="row item">
                                 <div class="col-4 align-self-center">
-                                    <img class="img-fluid" src="https://xcdn.next.co.uk/common/items/default/default/itemimages/altitemzoom/407106s.jpg?im=Resize,width=364">
+                                    <img class="img-fluid" src="{{url('/images/'.$data['item_image'])}}">
                                 </div>
                                 <div class="col-8">
-                                    <div class="row"><b>$29.99</b></div>
-                                    <div class="row text-muted">Knitted Polo Shirt</div>
-                                    <div class="row">Qty:1</div>
+                                    <div class="row"><b>Price: ${{$data['item_price']}}</b></div>
+                                    <div class="row"> Name: {{ $data['item_name'] }}</div>
+                                    <div class="row"> Quantity: {{ $data['item_quantity'] }}</div>
                                 </div>
                             </div>
-                            <div class="row item">
-                                <div class="col-4 align-self-center">
-                                    <img class="img-fluid" src="https://xcdn.next.co.uk/common/items/default/default/itemimages/altitemzoom/407106s.jpg?im=Resize,width=364">
-                                </div>
-                                <div class="col-8">
-                                    <div class="row"><b>$29.99</b></div>
-                                    <div class="row text-muted">Knitted Polo Shirt</div>
-                                    <div class="row">Qty:1</div>
-                                </div>
-                            </div>
+                        @endforeach
                             <hr>
                             <div class="row lower">
+                                <div class="col text-left">Total Items:</div>
+                                <div class="col text-right">{{$itemCount}}</div>
+                            </div>
+                            <div class="row lower">
                                 <div class="col text-left">Subtotal</div>
-                                <div class="col text-right">$59.89</div>
+                                <div class="col text-right">${{$grandTotal}}</div>
                             </div>
                             <div class="row lower">
                                 <div class="col text-left">Delivery</div>
@@ -86,12 +85,14 @@
                             </div>
                             <div class="row lower">
                                 <div class="col text-left"><b>Total to pay</b></div>
-                                <div class="col text-right"><b>$ 59.98</b></div>
+                                <div class="col text-right"><b>${{$grandTotal}}</b></div>
                             </div>
                             <button type="submit" class="btn btn-primary">Place Order</button>
                         </div>
                     </div>
                     </form>
+                    @endif
+                    @endif
                 </div>
             </div>
 
