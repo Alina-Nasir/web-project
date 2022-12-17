@@ -46,8 +46,8 @@ Route::group(['middleware'=>'auth'], function(){
 
 Route::get('{userType}',[App\Http\Controllers\ProductController::class,'index']);
 Route::get('/{userType}/{categoryId}',[App\Http\Controllers\ProductController::class,'category']);
-Route::get('/checkout',[App\Http\Controllers\CheckoutController::class,'getCheckout']);
-Route::post('/checkout/order',[App\Http\Controllers\CheckoutController::class,'placeOrder'])->middleware(['auth', 'verified'])->name('checkout.place.order');
+Route::get('/checkout',[App\Http\Controllers\CheckoutController::class,'getCheckout'])->middleware(['auth', 'verified']);
+Route::post('/checkout/order',[App\Http\Controllers\CheckoutController::class,'placeOrder'])->name('checkout.place.order');
 
 
 
