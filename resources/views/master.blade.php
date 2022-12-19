@@ -43,7 +43,8 @@
     <link rel="stylesheet" href="{{url('css/owl-carousel.css')}}">
 	<!-- Slicknav -->
     <link rel="stylesheet" href="{{url('css/slicknav.min.css')}}">
-	
+	<!-- Header StyleSheet -->
+	<link rel="stylesheet" href="{{url('css/header.css')}}">
 	<!-- Eshop StyleSheet -->
 	<link rel="stylesheet" href="{{url('css/reset.css')}}">
 	<link rel="stylesheet" href="{{url('css/style.css')}}">

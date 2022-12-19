@@ -745,7 +745,7 @@ Version:1.0
 	border:none;
 }
 .header.shop .header-inner {
-	background: #333;
+	background: radial-gradient(#fff, #ffd6d6);
 }
 .header.shop.v3 .header-inner {
 	background: transparent;
@@ -944,7 +944,7 @@ Version:1.0
 	color:#333;
 }
 .header.shop .nav li a {
-	color: #fff;
+	color: #555;
 	text-transform: capitalize;
 	font-size: 15px;
 	padding: 20px 15px;
@@ -956,16 +956,14 @@ Version:1.0
 	transition: all 0.4s ease;
 }
 .header.shop .nav li:hover a{
-	color:#fff;
-	background:#F7941D;
+	color: goldenrod;
 }
 .header.shop.v2 .nav li:hover a{
-	color:#F7941D;
+	color: goldenrod;
 	background:transparent;
 }
 .header.shop .nav li.active a{
-	color:#fff;
-	background:#F7941D;
+	color: #555;
 }
 .header.shop.v2 .nav li.active a{
 	color:#333 !important;
@@ -2926,7 +2924,7 @@ Version:1.0
 	padding:0px 50px;
 }
 .shopping-summery thead {
-	background: #F7941D;
+	background: goldenrod;
 	color: #fff;
 }
 .shopping-summery thead tr th {

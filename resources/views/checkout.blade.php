@@ -12,7 +12,7 @@
     <body className='snippet-body'>
         <div class="card">
             <div class="card-top border-bottom text-center">
-                <a href="#">Back to shop</a>
+                <a href="{{url('/')}}">Back to shop</a>
             </div>
             <div class="card-body">
                 <div class="row upper">

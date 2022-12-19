@@ -68,6 +68,7 @@ class CheckoutController extends Controller
                 }
             }
         }
+        Cookie::queue(Cookie::forget('shopping_cart'));
         return view('welcome');
     }
 }
