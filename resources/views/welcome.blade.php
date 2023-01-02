@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>NEXT</title>
+    <title>ZEST</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="{{url('css/home.css')}}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"/>
@@ -14,7 +14,7 @@
       <div class="container">
         <div class="navbar">
           <div class="logo">
-            <img src="{{url('/images/new-next-gold-logo.svg')}}" alt="RedStore Logo" width="125px" />
+            <img src="{{url('/images/logo.svg')}}" alt="RedStore Logo" width="125px" />
           </div>
           <nav>
             <ul id="MenuItems">
@@ -23,14 +23,39 @@
               <li><a href="{{ url('/women') }}">Women</a></li>
               <li><a href="{{ url('/boys') }}">Boys</a></li>
               <li><a href="{{ url('/girls') }}">Girls</a></li>
-              <li><a href="">Contact</a></li>
+              <li><a href="{{url('/contact')}}">Contact</a></li>
               @if (Route::has('login'))
               @auth
+              @if(Auth::user()->is_admin===1)
+              <li><a href="{{ route('adminhome') }}">Admin</a></li>
+              @else
+              <li><a href="{{ url('/home') }}">Admin</a></li>
+              @endif
+              @else
+              <li><a href="{{ route('admin') }}">Admin</a></li>
+              @endauth
+              @endif
+              @if (Route::has('login'))
+              @auth
+              @if(Auth::user()->is_admin===1)
+              <li><a href="{{ route('adminhome') }}">Account</a></li>
+              @else
               <li><a href="{{ url('/home') }}">Account</a></li>
+              @endif
               @else
               <li><a href="{{ route('login') }}">Account</a></li>
               @endauth
               @endif
+              <li>
+	<div class="searchbar-container">
+		<form  id='search-form' action="{{url('/searching')}}" method='POST' class="search-bar">
+      @csrf
+    <input name="search_product" id="search_text" placeholder="Search Products Here....." type="search" class='searchBar'>
+			<button type="submit" name='searchbtn'><img src="{{url('images/search.png')}}" alt="search-icon"></button>
+		</form>
+	</div>
+	<div class="clearfix"></div>
+</li>
             </ul>
           </nav>
           <a href="{{url('/cart')}}"><img
@@ -49,13 +74,15 @@
         </div>
         <div class="row">
           <div class="col-2">
-            <h1>Lorem ipsum dolor sit.</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, nostrum.</p>
-            <a href="" class="btn">Shop Now &#8594; </a>
+          @foreach($womenDresses as $dress)
+            <h1>Women Dresses</h1>
+            <p>{{$dress->description}}</p>
+            <a href="{{url('women/'.$dress->categoryId)}}" class="btn">Shop Now &#8594; </a>
           </div>
           <div class="col-2">
-            <img src="img/banner.png" alt="" />
+            <img src="{{url('/images/'.$dress->image)}}" alt="" />
           </div>
+          @endforeach
         </div>
       </div>
     </div>
@@ -66,80 +93,40 @@
     <div class="small-container">
       <h2 class="title" id="men">Men</h2>
       <div class="row">
+        @foreach($men as $man)
         <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g26/shotzoom/11/355-592s.jpg?im=Resize,width=364" alt="" />
-          <h4>Formal</h4></a>
+          <a href="{{url($man->type.'/'.$man->categoryId)}}"><img src="{{url('/images/'.$man->image)}}" alt="" />
+          <h4>{{$man->description}}</h4></a>
         </div>
-        <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g25/shotzoom/2028/206-781s.jpg?im=Resize,width=364" alt="" />
-          <h4>Jeans</h4></a>
-        </div>
-        <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g25/shotzoom/2065/145-512s.jpg?im=Resize,width=364" alt="" />
-          <h4>Shirts</h4></a>
-        </div>
-        <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/itemimages/altitemzoom/541094s.jpg?im=Resize,width=364" alt="" />
-          <h4>Sportswear</h4></a>
-        </div>
+        @endforeach
       </div>
 
       <h2 class="title" id="women">Women</h2>
       <div class="row">
+        @foreach($women as $woman)
         <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/gl8/shotzoom/88/p49-968s.jpg?im=Resize,width=364" alt="" />
-          <h4>Dresses</h4></a>
+          <a href="{{url($woman->type.'/'.$woman->categoryId)}}"><img src="{{url('/images/'.$woman->image)}}" alt="" />
+          <h4>{{$woman->description}}</h4></a>
         </div>
-        <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/itemimages/altitemzoom/q05504s.jpg?im=Resize,width=364" alt="" />
-          <h4>Shirts & Blouses</h4></a>
-        </div>
-        <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g66/shotzoom/135/207-667s.jpg?im=Resize,width=364" alt="" />
-          <h4>Jeans</h4></a>
-        </div>
-        <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g65/shotzoom/505/t85-836s.jpg?im=Resize,width=364" alt="" />
-          <h4>Loungewear</h4></a>
-        </div>
-        <div class="row">
-          <div class="col-4">
-            <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/itemimages/altitemzoom/a86457s.jpg?im=Resize,width=364" alt="" />
-            <h4>Formal</h4></a>
-          </div>
-          <div class="col-4">
-            <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g65/shotzoom/41/t71-032s.jpg?im=Resize,width=364" alt="" />
-            <h4>Sportswear</h4></a>
-          </div>
-          <div class="col-4">
-            <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g65/shotzoom/100/a90-532s.jpg?im=Resize,width=364" alt="" />
-            <h4>Skirts</h4></a>
-          </div>
-          <div class="col-4">
-            <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g55/shotzoom/1020/383-048s.jpg?im=Resize,width=364" alt="" />
-            <h4>Blazers</h4></a>
-          </div>
-        </div>
+        @endforeach
       </div>
+        
 
       <h2 class="title" id="kids">Kids</h2>
       <div class="row">
+      @foreach($boys as $boy)
         <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g64/shotzoom/4029/447-359s.jpg?im=Resize,width=364" alt="" />
-          <h4>Shorts</h4></a>
+          <a href="{{url($boy->type.'/'.$boy->categoryId)}}"><img src="{{url('/images/'.$boy->image)}}" alt="" />
+          <h4>{{$boy->description}}</h4></a>
         </div>
+        @endforeach
+        @foreach($girls as $girl)
         <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g63/shotzoom/4204/m86-053s.jpg?im=Resize,width=364" alt="" />
-          <h4>Jumpers & Knitwear</h4></a>
+          <a href="{{url($girl->type.'/'.$girl->categoryId)}}"><img src="{{url('/images/'.$girl->image)}}" alt="" />
+          <h4>{{$girl->description}}</h4></a>
         </div>
-        <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g65/shotzoom/4708/u29-459s.jpg?im=Resize,width=364" alt="" />
-          <h4>Shirts</h4></a>
-        </div>
-        <div class="col-4">
-          <a href=""><img src="https://xcdn.next.co.uk/common/items/default/default/publications/g65/shotzoom/4506/a06-762s.jpg?im=Resize,width=364" alt="" />
-          <h4>Pyjamas</h4></a>
-        </div>
+        @endforeach
+        
       </div>
     </div>
 
@@ -150,17 +137,19 @@
         <div class="row">
           <div class="col-2">
             <img
-              src="img/banner.png"
+              src=""
               class="offer-img"
-              alt="orange watch"
+              alt=""
             />
           </div>
           <div class="col-2">
-            <p>Exclusively Available on NEXT</p>
-            <h1>Lorem ipsum dolor sit.</h1>
-            <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum a quas repellendus inventore doloribus eveniet fugiat nam, omnis ea odio!</small>
-            <a href="" class="btn">Shop Now &#8594;</a>
+            <p>Exclusively Available on ZEST</p>
+            <h1>Gift Cards & E-Gift Cards</h1>
+            @foreach($gifts as $gift)
+            <small>{{$gift->description}}</br></small>
+            <a href="{{url('women/'.$gift->categoryId)}}" class="btn">Shop Now &#8594;</a>
           </div>
+          @endforeach
         </div>
       </div>
     </div>
@@ -170,12 +159,11 @@
     <div class="testimonial">
       <div class="small-container">
         <div class="row">
+        @foreach($testimonials as $testimonial)
           <div class="col-3">
             <i class="fa fa-quote-left"></i>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. In
-              nesciunt doloremque maxime quidem necessitatibus sed repellat ea
-              officia quibusdam! Sunt.
+            {{$testimonial->description}}
             </p>
             <div class="rating">
               <i class="fa fa-star"></i>
@@ -184,43 +172,10 @@
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
             </div>
-            <img src="img/user-1.png" alt="human face" />
-            <h3>Grace Cho</h3>
+            <img src="{{url('/images/'.$testimonial->image)}}" alt="human face" />
+            <h3>Customer</h3>
           </div>
-          <div class="col-3">
-            <i class="fa fa-quote-left"></i>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. In
-              nesciunt doloremque maxime quidem necessitatibus sed repellat ea
-              officia quibusdam! Sunt.
-            </p>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-            <img src="img/user-2.png" alt="human face" />
-            <h3>Frank Garett</h3>
-          </div>
-          <div class="col-3">
-            <i class="fa fa-quote-left"></i>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. In
-              nesciunt doloremque maxime quidem necessitatibus sed repellat ea
-              officia quibusdam! Sunt.
-            </p>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-            <img src="img/user-3.png" alt="human face" />
-            <h3>Charolette Rue</h3>
-          </div>
+          @endforeach
         </div>
       </div>
     </div>
@@ -230,30 +185,19 @@
       <div class="container">
         <div class="row">
           <div class="footer-col-2">
-            <img src="{{url('/images/new-next-gold-logo.svg')}}" alt="" />
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, quae!</p>
+            <img src="{{url('/images/logo.svg')}}" alt="" />
+            <p>At Zest, we believe in quality and giving the best</p>
           </div>
           <div class="footer-col-3">
             <h3>Useful Links</h3>
             <ul>
-              <li><a href="">Link1</a></li>
-              <li><a href="">Link2</a></li>
-              <li><a href="">Link3</a></li>
-              <li><a href="">Link4</a></li>
-            </ul>
-          </div>
-          <div class="footer-col-4">
-            <h3>Follow Us</h3>
-            <ul>
-              <li><a href="">Facebook</a></li>
-              <li><a href="">Twitter</a></li>
-              <li><a href="">Instagram</a></li>
-              <li><a href="">Discord</a></li>
+              <li><a href="{{url('/about')}}">About Us</a></li>
+              <li><a href="{{url('/terms')}}">Terms & Conditions</a></li>
             </ul>
           </div>
         </div>
         <hr />
-        <p class="copyright">Copyright 2022 - Faiz Kamal</p>
+        <p class="copyright">Copyright 2022 - ZEST</p>
       </div>
     </div>
     <script>
@@ -263,11 +207,38 @@
 
       function menutoggle() {
         if (MenuItems.style.maxHeight == "0px") {
-          MenuItems.style.maxHeight = "220px";
+          MenuItems.style.maxHeight = "350px";
         } else {
           MenuItems.style.maxHeight = "0px";
         }
       }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+$(document).ready(function () {
+  src="{{ route('searchproductsajax')}}"
+  $( "#search_text" ).autocomplete({
+      source: function(request,response){
+        $.ajax({
+            url: src,
+            dataType: 'json',
+            data: {
+              term: request.term
+            },
+            success: function (data) {
+                response(data);
+            }
+        });
+      },
+      minLength:1
+    });
+
+    $(document).on('click','ui-menu-item',function () {
+      $('#search-form').submit();
+    });
+});
+      
     </script>
   </body>
 </html>

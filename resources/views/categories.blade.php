@@ -67,9 +67,10 @@
 							<div class="inner">
 								<h4>Newsletter</h4>
 								<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-								<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-									<input name="EMAIL" placeholder="Your email address" required="" type="email">
-									<button class="btn">Subscribe</button>
+								<form action="{{ url('addSubscriber') }}" method="POST"  class="newsletter-inner">
+									@csrf
+									<input name="email" placeholder="Your email address" required="" type="email">
+									<button class="btn" type="submit">Subscribe</button>
 								</form>
 							</div>
 							<!-- End Newsletter Inner -->

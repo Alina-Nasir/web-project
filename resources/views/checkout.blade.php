@@ -33,20 +33,20 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="fname" class="form-label">Customers Name:</label>
-                                    <input class="form-control" name="fname" id="fname" placeholder="{{Auth::user()->fname}} {{Auth::user()->lname}}">
+                                    <input class="form-control" name="fname" id="fname" placeholder="{{Auth::user()->fname}} {{Auth::user()->lname}}" disabled>
                                 </div>
                                 <div class="mb-3">
                                     <label for="house_no" class="form-label">House no:</label>
-                                    <input class="form-control" name="house_no" id="house_no" placeholder="{{Auth::user()->house_no}}">
+                                    <input class="form-control" name="house_no" id="house_no" placeholder="{{Auth::user()->house_no}}" value="{{Auth::user()->house_no}}">
                                 </div>
                                 <div class="mb-3">
                                     <div class="col-4">
                                         <label for="postal_code">Postal Code:</label>
-                                        <input class="form-control" for="postal_code" name="postal_code" name="postal_code" placeholder="{{Auth::user()->postal_code}}">
+                                        <input class="form-control" for="postal_code" name="postal_code" name="postal_code" placeholder="{{Auth::user()->postal_code}}" value="{{Auth::user()->postal_code}}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="email">Email:</label>
-                                        <input class="form-control" for="email" name="email" placeholder="{{Auth::user()->email}}">
+                                        <input class="form-control" for="email" name="email" placeholder="{{Auth::user()->email}}" diabled>
                                     </div>
                                 </div>
                             

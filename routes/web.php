@@ -20,18 +20,26 @@ use App\Models\Category;
   //  return view('welcome');
 //});
 
-Route::view("/","welcome");
+Route::get("/",[App\Http\Controllers\HomeController::class,'index']);
+Route::view('/contact','contact');
 //Route::view("/cart","cart");
 Route::post("/description",[App\Http\Controllers\ProductController::class,'description']);
 Route::post("/add-to-cart",[App\Http\Controllers\CartController::class,'addtocart']);
 Route::get('/cart',[App\Http\Controllers\CartController::class,'index']);
 Route::post('update-to-cart',[App\Http\Controllers\CartController::class,'updatetocart']);
 Route::delete('delete-from-cart',[App\Http\Controllers\CartController::class,'deletefromcart']);
+Route::post('addContact',[App\Http\Controllers\HomeController::class,'addcontact']);
+Route::post('addSubscriber',[App\Http\Controllers\HomeController::class,'addSubscribers']);
+Route::get('/about',[App\Http\Controllers\AboutController::class,'index']);
+Route::get('/terms',[App\Http\Controllers\AboutController::class,'terms']);
 
 //Route::view("/checkout",'checkout'); //just for testing
+Route::get('/searchajax',[App\Http\Controllers\ProductController::class,'SearchAutoComplete'])->name('searchproductsajax');
+Route::post('/searching',[App\Http\Controllers\ProductController::class,'result']);
 
 Route::get('/checkout',[App\Http\Controllers\CheckoutController::class,'getCheckout'])->middleware(['auth', 'verified']);
 Route::post('/checkout/order',[App\Http\Controllers\CheckoutController::class,'placeOrder'])->name('checkout.place.order');
+
 
 Route::group(['middleware'=>'guest'], function(){
     Route::get('login',[AuthController::class, 'index'])->name('login');
@@ -56,8 +64,11 @@ Route::group(['middleware'=>'disable_back_btn'], function(){
     Route::get('addCategory',[ProductController::class, 'addCategory'])->name('addCategory');
     Route::post('addNewCategory',[ProductController::class, 'addNewCategory'])->name('addNewCategory');
     Route::get('showCustomers',[AuthController::class, 'showCustomers'])->name('showCustomers');
+    Route::get('showOrders',[AuthController::class, 'showOrders'])->name('showOrders');
     Route::get('inventory',[AuthController::class, 'inventory'])->name('inventory');
     Route::get('adminProfile',[AuthController::class, 'adminProfile'])->name('adminProfile');
+    Route::get('addAdmin',[AuthController::class, 'register_admin'])->name('addAdmin');
+    Route::post('addnewadmin',[AuthController::class, 'register_new_admin'])->name('addnewadmin');
 
 });
 });

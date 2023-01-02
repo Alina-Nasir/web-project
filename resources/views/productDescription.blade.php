@@ -31,11 +31,11 @@
       <div class="container">
         <div class="navbar">
           <div class="logo">
-            <img src="{{url('/images/new-next-gold-logo.svg')}}" alt="RedStore Logo" width="125px" />
+            <img src="{{url('/images/logo.svg')}}" alt="RedStore Logo" width="125px" />
           </div>
           <nav>
             <ul id="MenuItems">
-              <li><a href="home.html">Home</a></li>
+              <li><a href="{{ url('/') }}">Home</a></li>
               <li><a href="{{ url('/men') }}">Men</a></li>
               <li><a href="{{ url('/women') }}">Women</a></li>
               <li><a href="{{ url('/boys') }}">Boys</a></li>
@@ -43,7 +43,11 @@
               <li><a href="">Contact</a></li>
               @if (Route::has('login'))
               @auth
+              @if(Auth::user()->is_admin===1)
+              <li><a href="{{ route('adminhome') }}">Account</a></li>
+              @else
               <li><a href="{{ url('/home') }}">Account</a></li>
+              @endif
               @else
               <li><a href="{{ route('login') }}">Account</a></li>
               @endauth
@@ -80,15 +84,15 @@
                             </div>
                             <!-- Slide 2 -->
                             <div class="item">
-                                <img src="{{url('/images/'.$product->picture)}}" class="img-responsive" alt="" width='364' height='546'/>
+                                <img src="{{url('/images/'.$product->pic2)}}" class="img-responsive" alt="" width='364' height='546'/>
                             </div>
                             <!-- Slide 3 -->
                             <div class="item">
-                                <img src="{{url('/images/'.$product->picture)}}" class="img-responsive" alt="" width='364' height='546' />
+                                <img src="{{url('/images/'.$product->pic3)}}" class="img-responsive" alt="" width='364' height='546' />
                             </div>
                             <!-- Slide 4 -->
                             <div class="item">
-                                <img src="{{url('/images/'.$product->picture)}}" class="img-responsive" alt="" width='364' height='546' />
+                                <img src="{{url('/images/'.$product->pic4)}}" class="img-responsive" alt="" width='364' height='546' />
                             </div>
                         </div>
                         <a class="left carousel-control" href="#myCarousel-2" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
@@ -158,7 +162,12 @@
                 <hr />
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                        <button class=" add-to-cart-btn btn btn-success btn-lg">Add to Cart</button>
+                        @if(count($availability)==0)
+                        <button class=" add-to-cart-btn btn btn-success btn-lg" disabled>Add to Cart</button>
+                        <p style='color:red;'>Currently out of stock</p>
+                        @else
+                        <button class=" add-to-cart-btn btn btn-success btn-lg" >Add to Cart</button>
+                        @endif
                         <a href="{{url('/cart')}}" class="btn btn-success btn-lg">View Cart</a>
                     </div>
                     
@@ -171,4 +180,5 @@
 </div>
 
 </body>
+@include('footer')
 </html>

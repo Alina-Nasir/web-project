@@ -19,7 +19,7 @@
       <div class="container-header">
         <div class="navbar">
           <div class="logo">
-            <img src="{{url('images/new-next-gold-logo.svg')}}" alt="RedStore Logo" width="125px" />
+            <img src="{{url('images/logo.svg')}}" alt="RedStore Logo" width="125px" />
           </div>
           <nav>
             <ul id="MenuItems">
@@ -216,171 +216,50 @@
 	
 	<!-- Start Shop Newsletter  -->
 	<section class="shop-newsletter section">
-		<div class="container">
-			<div class="inner-top">
-				<div class="row">
-					<div class="col-lg-8 offset-lg-2 col-12">
-						<!-- Start Newsletter Inner -->
-						<div class="inner">
-							<h4>Newsletter</h4>
-							<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-							<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-								<input name="EMAIL" placeholder="Your email address" required="" type="email">
-								<button class="btn">Subscribe</button>
-							</form>
+			<div class="container">
+				<div class="inner-top">
+					<div class="row">
+						<div class="col-lg-8 offset-lg-2 col-12">
+							<!-- Start Newsletter Inner -->
+							<div class="inner">
+								<h4>Newsletter</h4>
+								<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
+								<form action="{{ url('addSubscriber') }}" method="POST"  class="newsletter-inner">
+									@csrf
+									<input name="email" placeholder="Your email address" required="" type="email">
+									<button class="btn" type="submit">Subscribe</button>
+								</form>
+							</div>
+							<!-- End Newsletter Inner -->
 						</div>
-						<!-- End Newsletter Inner -->
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<!-- End Shop Newsletter -->
+		</section>
+		<!-- End Shop Newsletter -->
 	
 	
 	
-	<!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row no-gutters">
-                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                <!-- Product Slider -->
-									<div class="product-gallery">
-										<div class="quickview-slider-active">
-											<div class="single-slider">
-												<img src="images/modal1.jpg" alt="#">
-											</div>
-											<div class="single-slider">
-												<img src="images/modal2.jpg" alt="#">
-											</div>
-											<div class="single-slider">
-												<img src="images/modal3.jpg" alt="#">
-											</div>
-											<div class="single-slider">
-												<img src="images/modal4.jpg" alt="#">
-											</div>
-										</div>
-									</div>
-								<!-- End Product slider -->
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                <div class="quickview-content">
-                                    <h2>Flared Shift Dress</h2>
-                                    <div class="quickview-ratting-review">
-                                        <div class="quickview-ratting-wrap">
-                                            <div class="quickview-ratting">
-                                                <i class="yellow fa fa-star"></i>
-                                                <i class="yellow fa fa-star"></i>
-                                                <i class="yellow fa fa-star"></i>
-                                                <i class="yellow fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                            <a href="#"> (1 customer review)</a>
-                                        </div>
-                                        <div class="quickview-stock">
-                                            <span><i class="fa fa-check-circle-o"></i> in stock</span>
-                                        </div>
-                                    </div>
-                                    <h3>$29.00</h3>
-                                    <div class="quickview-peragraph">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos qui nemo ipsum numquam.</p>
-                                    </div>
-									<div class="size">
-										<div class="row">
-											<div class="col-lg-6 col-12">
-												<h5 class="title">Size</h5>
-												<select>
-													<option selected="selected">s</option>
-													<option>m</option>
-													<option>l</option>
-													<option>xl</option>
-												</select>
-											</div>
-											<div class="col-lg-6 col-12">
-												<h5 class="title">Color</h5>
-												<select>
-													<option selected="selected">orange</option>
-													<option>purple</option>
-													<option>black</option>
-													<option>pink</option>
-												</select>
-											</div>
-										</div>
-									</div>
-                                    <div class="quantity">
-										<!-- Input Order -->
-										<div class="input-group">
-											<div class="button minus">
-												<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-													<i class="ti-minus"></i>
-												</button>
-											</div>
-											<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
-											<div class="button plus">
-												<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-													<i class="ti-plus"></i>
-												</button>
-											</div>
-										</div>
-										<!--/ End Input Order -->
-									</div>
-									<div class="add-to-cart">
-										<a href="#" class="btn">Add to cart</a>
-										<a href="#" class="btn min"><i class="ti-heart"></i></a>
-										<a href="#" class="btn min"><i class="fa fa-compress"></i></a>
-									</div>
-                                    <div class="default-social">
-										<h4 class="share-now">Share:</h4>
-                                        <ul>
-                                            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a class="youtube" href="#"><i class="fa fa-pinterest-p"></i></a></li>
-                                            <li><a class="dribbble" href="#"><i class="fa fa-google-plus"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal end -->
+
 	
 	<!-- Start Footer Area -->
-<div class="footer">
+	<div class="footer">
       <div class="container">
         <div class="row">
           <div class="footer-col-2">
-            <img src="{{url('/images/new-next-gold-logo.svg')}}" alt="" />
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, quae!</p>
+            <img src="{{url('/images/logo.svg')}}" alt="" />
+            <p>At Zest we believe in quality and giving the best</p>
           </div>
           <div class="footer-col-3">
             <h3>Useful Links</h3>
             <ul>
-              <li><a href="">Link1</a></li>
-              <li><a href="">Link2</a></li>
-              <li><a href="">Link3</a></li>
-              <li><a href="">Link4</a></li>
-            </ul>
-          </div>
-          <div class="footer-col-4">
-            <h3>Follow Us</h3>
-            <ul>
-              <li><a href="">Facebook</a></li>
-              <li><a href="">Twitter</a></li>
-              <li><a href="">Instagram</a></li>
-              <li><a href="">Discord</a></li>
+              <li><a href="{{url('/about')}}">About Us</a></li>
+              <li><a href="{{url('/terms')}}">Terms & Conditions</a></li>
             </ul>
           </div>
         </div>
         <hr />
-        <p class="copyright">Copyright 2022 - Faiz Kamal</p>
+        <p class="copyright">Copyright 2022 - ZEST</p>
       </div>
     </div>
 	<!--End Footer Area-->

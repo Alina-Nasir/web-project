@@ -16,7 +16,7 @@
       <div class="container-header">
         <div class="navbar">
           <div class="logo">
-            <img src="{{url('images/new-next-gold-logo.svg')}}" alt="RedStore Logo" width="125px" />
+            <img src="{{url('images/logo.svg')}}" alt="RedStore Logo" width="125px" />
           </div>
           <nav>
             <ul id="MenuItems">
@@ -28,7 +28,11 @@
               <li><a href="">Contact</a></li>
               @if (Route::has('login'))
               @auth
+              @if(Auth::user()->is_admin===1)
+              <li><a href="{{ route('adminhome') }}">Account</a></li>
+              @else
               <li><a href="{{ url('/home') }}">Account</a></li>
+              @endif
               @else
               <li><a href="{{ route('login') }}">Account</a></li>
               @endauth
@@ -73,53 +77,25 @@
 								<div class="single-widget category">
 									<h3 class="title">Categories</h3>
 									<ul class="categor-list">
-										<li><a href="#">T-shirts</a></li>
-										<li><a href="#">jacket</a></li>
-										<li><a href="#">jeans</a></li>
-										<li><a href="#">sweatshirts</a></li>
-										<li><a href="#">trousers</a></li>
-										<li><a href="#">kitwears</a></li>
-										<li><a href="#">accessories</a></li>
+									@foreach($categories as $category)
+										<li><a href="{{url($category->userType.'/'.$category->categoryId)}}">{{$category->categoryName}}</a></li>
+										@endforeach
 									</ul>
 								</div>
 								<!--/ End Single Widget -->
-								<!-- Shop By Price -->
-									<div class="single-widget range">
-										<h3 class="title">Shop by Price</h3>
-										<div class="price-filter">
-											<div class="price-filter-inner">
-												<div id="slider-range"></div>
-													<div class="price_slider_amount">
-													<div class="label-input">
-														<span>Range:</span><input type="text" id="amount" name="price" placeholder="Add Your Price"/>
-													</div>
-												</div>
-											</div>
-										</div>
-										<ul class="check-box-list">
-											<li>
-												<label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox">$20 - $50<span class="count">(3)</span></label>
-											</li>
-											<li>
-												<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">$50 - $100<span class="count">(5)</span></label>
-											</li>
-											<li>
-												<label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox">$100 - $250<span class="count">(8)</span></label>
-											</li>
-										</ul>
-									</div>
-									<!--/ End Shop By Price -->
+						
 								<!-- Single Widget -->
 								<div class="single-widget recent-post">
 									<h3 class="title">Recent post</h3>
 									<!-- Single Post -->
+									@foreach($recents as $recent)
 									<div class="single-post first">
 										<div class="image">
-											<img src="https://via.placeholder.com/75x75" alt="#">
+											<img src="{{url('/images/'.$recent->picture)}}" alt="#">
 										</div>
 										<div class="content">
-											<h5><a href="#">Girls Dress</a></h5>
-											<p class="price">$99.50</p>
+											<h5><a href="#">{{$recent->productName}}</a></h5>
+											<p class="price">${{$recent->price}}</p>
 											<ul class="reviews">
 												<li class="yellow"><i class="ti-star"></i></li>
 												<li class="yellow"><i class="ti-star"></i></li>
@@ -130,56 +106,12 @@
 										</div>
 									</div>
 									<!-- End Single Post -->
-									<!-- Single Post -->
-									<div class="single-post first">
-										<div class="image">
-											<img src="https://via.placeholder.com/75x75" alt="#">
-										</div>
-										<div class="content">
-											<h5><a href="#">Women Clothings</a></h5>
-											<p class="price">$99.50</p>
-											<ul class="reviews">
-												<li class="yellow"><i class="ti-star"></i></li>
-												<li class="yellow"><i class="ti-star"></i></li>
-												<li class="yellow"><i class="ti-star"></i></li>
-												<li class="yellow"><i class="ti-star"></i></li>
-												<li><i class="ti-star"></i></li>
-											</ul>
-										</div>
-									</div>
-									<!-- End Single Post -->
-									<!-- Single Post -->
-									<div class="single-post first">
-										<div class="image">
-											<img src="https://via.placeholder.com/75x75" alt="#">
-										</div>
-										<div class="content">
-											<h5><a href="#">Man Tshirt</a></h5>
-											<p class="price">$99.50</p>
-											<ul class="reviews">
-												<li class="yellow"><i class="ti-star"></i></li>
-												<li class="yellow"><i class="ti-star"></i></li>
-												<li class="yellow"><i class="ti-star"></i></li>
-												<li class="yellow"><i class="ti-star"></i></li>
-												<li class="yellow"><i class="ti-star"></i></li>
-											</ul>
-										</div>
-									</div>
-									<!-- End Single Post -->
+									@endforeach
+									
+									
 								</div>
 								<!--/ End Single Widget -->
-								<!-- Single Widget -->
-								<div class="single-widget category">
-									<h3 class="title">Manufacturers</h3>
-									<ul class="categor-list">
-										<li><a href="#">Forever</a></li>
-										<li><a href="#">giordano</a></li>
-										<li><a href="#">abercrombie</a></li>
-										<li><a href="#">ecko united</a></li>
-										<li><a href="#">zara</a></li>
-									</ul>
-								</div>
-								<!--/ End Single Widget -->
+								
 						</div>
 					</div>
 					<div class="col-lg-9 col-md-8 col-12">
@@ -189,27 +121,14 @@
 								<div class="shop-top">
 									<div class="shop-shorter">
 										<div class="single-shorter">
-											<label>Show :</label>
-											<select>
-												<option selected="selected">09</option>
-												<option>15</option>
-												<option>25</option>
-												<option>30</option>
-											</select>
-										</div>
-										<div class="single-shorter">
 											<label>Sort By :</label>
-											<select>
-												<option selected="selected">Name</option>
-												<option>Price</option>
-												<option>Size</option>
+											<select name='dropDown' id='dropDown' onchange="javascript:location.href = this.value;">
+												<option  value="{{URL::current().'?sort=price_asc'}}">Price - Low to High</option>
+												<option value="{{URL::current().'?sort=price_desc'}}">Price - High to Low</option>
+												<option selected="selected" value="{{URL::current().'?sort=newest'}}">Newest</option>
 											</select>
 										</div>
 									</div>
-									<ul class="view-mode">
-										<li class="active"><a href="shopgrid"><i class="fa fa-th-large"></i></a></li>
-										<li><a href="shop-list.html"><i class="fa fa-th-list"></i></a></li>
-									</ul>
 								</div>
 								<!--/ End Shop Top -->
 							</div>
@@ -221,15 +140,12 @@
 							<div class="col-lg-4 col-md-6 col-12">
 								<div class="single-product">
 									<div class="product-img">
-										<a href="product-details.html">
-											<img class="default-img" src="{{url('/images/'.$product->picture)}}" alt="#">
+											
 											<img class="hover-img" src="{{url('/images/'.$product->picture)}}" alt="#">
-										</a>
 										<div class="button-head">
 											<div class="product-action">
-												<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-												<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-												<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+												
+												
 												<input type='hidden' value='{{$product->productId}}' name='productId'></input>
 											</div>
 											<div class="product-action-2">
@@ -237,13 +153,13 @@
                         @csrf
                         <input type="hidden" value="{{ $product->productId }}" name="id"></input>
                         
-                        <input type='submit' class="px-4 py-2 text-white bg-blue-800 rounded" value='Add to Cart'></input>
+                        <input type='submit' class="px-4 py-2 text-white bg-blue-800 rounded" value='View Product'></input>
 </form>
 											</div>
 										</div>
 									</div>
 									<div class="product-content">
-										<h3><a href="product-details.html">{{$product->productName}}</a></h3>
+										<h5>{{$product->productName}}</h5>
 										<div class="product-price">
 											<span>${{$product->price}}</span>
 										</div>
@@ -271,9 +187,10 @@
 							<div class="inner">
 								<h4>Newsletter</h4>
 								<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-								<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-									<input name="EMAIL" placeholder="Your email address" required="" type="email">
-									<button class="btn">Subscribe</button>
+								<form action="{{ url('addSubscriber') }}" method="POST"  class="newsletter-inner">
+									@csrf
+									<input name="email" placeholder="Your email address" required="" type="email">
+									<button class="btn" type="submit">Subscribe</button>
 								</form>
 							</div>
 							<!-- End Newsletter Inner -->
@@ -286,148 +203,25 @@
 		
 		
 		
-		<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
-						</div>
-						<div class="modal-body">
-							<div class="row no-gutters">
-								<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-									<!-- Product Slider -->
-										<div class="product-gallery">
-											<div class="quickview-slider-active">
-												<div class="single-slider">
-													<img src="https://via.placeholder.com/569x528" alt="#">
-												</div>
-												<div class="single-slider">
-													<img src="https://via.placeholder.com/569x528" alt="#">
-												</div>
-												<div class="single-slider">
-													<img src="https://via.placeholder.com/569x528" alt="#">
-												</div>
-												<div class="single-slider">
-													<img src="https://via.placeholder.com/569x528" alt="#">
-												</div>
-											</div>
-										</div>
-									<!-- End Product slider -->
-								</div>
-								<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-									<div class="quickview-content">
-										<h2>Flared Shift Dress</h2>
-										<div class="quickview-ratting-review">
-											<div class="quickview-ratting-wrap">
-												<div class="quickview-ratting">
-													<i class="yellow fa fa-star"></i>
-													<i class="yellow fa fa-star"></i>
-													<i class="yellow fa fa-star"></i>
-													<i class="yellow fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<a href="#"> (1 customer review)</a>
-											</div>
-											<div class="quickview-stock">
-												<span><i class="fa fa-check-circle-o"></i> in stock</span>
-											</div>
-										</div>
-										<h3>$29.00</h3>
-										<div class="quickview-peragraph">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos qui nemo ipsum numquam.</p>
-										</div>
-										<div class="size">
-											<div class="row">
-												<div class="col-lg-6 col-12">
-													<h5 class="title">Size</h5>
-													<select>
-														<option selected="selected">s</option>
-														<option>m</option>
-														<option>l</option>
-														<option>xl</option>
-													</select>
-												</div>
-												<div class="col-lg-6 col-12">
-													<h5 class="title">Color</h5>
-													<select>
-														<option selected="selected">orange</option>
-														<option>purple</option>
-														<option>black</option>
-														<option>pink</option>
-													</select>
-												</div>
-											</div>
-										</div>
-										<div class="quantity">
-											<!-- Input Order -->
-											<div class="input-group">
-												<div class="button minus">
-													<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-														<i class="ti-minus"></i>
-													</button>
-												</div>
-												<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
-												<div class="button plus">
-													<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-														<i class="ti-plus"></i>
-													</button>
-												</div>
-											</div>
-											<!--/ End Input Order -->
-										</div>
-										<div class="add-to-cart">
-											<a href="#" class="btn">Add to cart</a>
-											<a href="#" class="btn min"><i class="ti-heart"></i></a>
-											<a href="#" class="btn min"><i class="fa fa-compress"></i></a>
-										</div>
-										<div class="default-social">
-											<h4 class="share-now">Share:</h4>
-											<ul>
-												<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-												<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-												<li><a class="youtube" href="#"><i class="fa fa-pinterest-p"></i></a></li>
-												<li><a class="dribbble" href="#"><i class="fa fa-google-plus"></i></a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Modal end -->
 		
 <!-- Start Footer Area -->
 <div class="footer">
       <div class="container">
         <div class="row">
           <div class="footer-col-2">
-            <img src="{{url('/images/new-next-gold-logo.svg')}}" alt="" />
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, quae!</p>
+            <img src="{{url('/images/logo.svg')}}" alt="" />
+            <p>At Zest, we believe in quality and giving the best</p>
           </div>
           <div class="footer-col-3">
             <h3>Useful Links</h3>
             <ul>
-              <li><a href="">Link1</a></li>
-              <li><a href="">Link2</a></li>
-              <li><a href="">Link3</a></li>
-              <li><a href="">Link4</a></li>
-            </ul>
-          </div>
-          <div class="footer-col-4">
-            <h3>Follow Us</h3>
-            <ul>
-              <li><a href="">Facebook</a></li>
-              <li><a href="">Twitter</a></li>
-              <li><a href="">Instagram</a></li>
-              <li><a href="">Discord</a></li>
+              <li><a href="{{url('/about')}}">About Us</a></li>
+              <li><a href="{{url('/terms')}}">Terms & Conditions</a></li>
             </ul>
           </div>
         </div>
         <hr />
-        <p class="copyright">Copyright 2022 - Faiz Kamal</p>
+        <p class="copyright">Copyright 2022 - ZEST</p>
       </div>
     </div>
 	<!--End Footer Area-->

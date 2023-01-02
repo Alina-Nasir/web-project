@@ -174,7 +174,9 @@ h4 {
 }
 
 .offer {
-  background: radial-gradient(#fff, #ffd6d6);
+  background: url('/images/giftcard01.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
   margin-top: 80px;
   padding: 30px 0;
 }
@@ -306,10 +308,53 @@ ul {
   margin-left: 20px;
   display: none;
 }
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.searchbar-container{
+  width: 200px;
+}
+
+.search-bar{
+  width: 200px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  padding: 0px 0px;
+}
+
+.search-bar input{
+  width: 150px;
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 8px 5px;
+  font-size: 16px;
+}
+
+.search-bar button img{
+  width: 18px;
+}
+
+.search-bar button{
+  border: 0;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  background: #555555;
+  cursor: pointer;
+}
+
+.search-bar :hover{
+  color: black;
+}
 
 /* Media Query for Menu */
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 950px) {
   nav ul {
     position: absolute;
     top: 70px;
@@ -338,6 +383,18 @@ ul {
 
   .col-4{
     flex-basis: 50%;
+  }
+
+  .searchbar-container{
+    float: right;
+  }
+
+  .search-bar input {
+    color: #fff;
+  }
+
+  .search-bar :hover {
+    color: #fff;
   }
 }
 

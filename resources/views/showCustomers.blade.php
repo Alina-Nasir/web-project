@@ -94,7 +94,7 @@
 </header> -->
 <nav class="navbar navbar-dark bg-dark" aria-label="Dark offcanvas navbar">
     <div class="container-fluid">
-      <p class="navbar-brand" >NEXT</p>
+      <p class="navbar-brand" >ZEST</p>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -111,6 +111,9 @@
             <!-- <li class="nav-item">
               <a style='color: black;' class="nav-link" href="#">Link</a>
             </li> -->
+            <li class="nav-item">
+              <a style='color: black;' class="nav-link" href="{{ route('addAdmin') }}">Add New Admin</a>
+            </li>
             <li class="nav-item dropdown">
               <a style='color: black;' class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Account
@@ -153,6 +156,12 @@
             <a class="nav-link" href="{{ route('addCategory') }}">
               <span data-feather="shopping-cart" class="align-text-bottom"></span>
               Add Category
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('showOrders') }}">
+              <span data-feather="users" class="align-text-bottom"></span>
+              Orders Received
             </a>
           </li>
           

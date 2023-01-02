@@ -88,7 +88,17 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="{{ url('/') }}">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="#">Account</a></li>
+								@if (Route::has('login'))
+              @auth
+              @if(Auth::user()->is_admin===1)
+              <li><a href="{{ route('adminhome') }}">Account</a></li>
+              @else
+              <li><a href="{{ url('/home') }}">Account</a></li>
+              @endif
+              @else
+              <li><a href="{{ route('login') }}">Account</a></li>
+              @endauth
+              @endif
 							</ul>
 						</div>
 					</div>
@@ -198,4 +208,44 @@
 
 </body>
 @include('footer')
+<script>
+      var MenuItems = document.getElementById("MenuItems");
+
+      MenuItems.style.maxHeight = "0px";
+
+      function menutoggle() {
+        if (MenuItems.style.maxHeight == "0px") {
+          MenuItems.style.maxHeight = "350px";
+        } else {
+          MenuItems.style.maxHeight = "0px";
+        }
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+$(document).ready(function () {
+  src="{{ route('searchproductsajax')}}"
+  $( "#search_text" ).autocomplete({
+      source: function(request,response){
+        $.ajax({
+            url: src,
+            dataType: 'json',
+            data: {
+              term: request.term
+            },
+            success: function (data) {
+                response(data);
+            }
+        });
+      },
+      minLength:1
+    });
+
+    $(document).on('click','ui-menu-item',function () {
+      $('#search-form').submit();
+    });
+});
+      
+    </script>
 </html>

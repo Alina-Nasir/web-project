@@ -13,6 +13,118 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/navbars-offcanvas/">
     
+    
+    <!-- piechart link -->
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts.min.js"></script>
+
+
+
+<script>
+  
+$(function(){
+
+  'use strict'
+ 
+  /**************** PIE CHART ************/
+  var pieData = [{
+    name: 'Stock Distribution in $',
+    type: 'pie',
+    radius: '70%',
+    center: ['50%', '57.5%'],
+    data: <?php echo json_encode($Data); ?>,
+    label: {
+      normal: {
+        fontFamily: 'Roboto, sans-serif',
+        fontSize: 11
+      }
+    },
+    labelLine: {
+      normal: {
+        show: false
+      }
+    },
+    markLine: {
+      lineStyle: {
+        normal: {
+          width: 1
+        }
+      }
+    }
+  }];
+
+  var pieOption = {
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b}: {c} ({d}%)',
+      textStyle: {
+        fontSize: 11,
+        fontFamily: 'Roboto, sans-serif'
+      }
+    },
+    legend: {},
+    series: pieData
+  };
+
+  var pie = document.getElementById('chartPie');
+  var pieChart = echarts.init(pie);
+  pieChart.setOption(pieOption);
+   /** making all charts responsive when resize **/
+});
+$(function(){
+
+'use strict'
+
+/**************** PIE CHART ************/
+var pieData2 = [{
+  name: 'Sales of current items in $',
+  type: 'pie',
+  radius: '70%',
+  center: ['50%', '57.5%'],
+  data: <?php echo json_encode($Data2); ?>,
+  label: {
+    normal: {
+      fontFamily: 'Roboto, sans-serif',
+      fontSize: 11
+    }
+  },
+  labelLine: {
+    normal: {
+      show: false
+    }
+  },
+  markLine: {
+    lineStyle: {
+      normal: {
+        width: 1
+      }
+    }
+  }
+}];
+
+var pieOption2 = {
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b}: {c} ({d}%)',
+    textStyle: {
+      fontSize: 11,
+      fontFamily: 'Roboto, sans-serif'
+    }
+  },
+  legend: {},
+  series: pieData2
+};
+
+var pie2 = document.getElementById('chartPie2');
+var pieChart2 = echarts.init(pie2);
+pieChart2.setOption(pieOption2);
+ /** making all charts responsive when resize **/
+});
+
+</script>
+    <!-- end links -->
 
 <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -68,6 +180,11 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+      .chart-container {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+  }
     </style>
     <?php
     function computePrice($a, $b, $c, $d){
@@ -81,17 +198,7 @@
   </head>
   <body>
     
-<!-- <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Next</a>
- 
-  
-  <div class="navbar-nav">
-  
-    <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="{{ route('adminlogout') }}">Sign out</a>
-    </div>
-  </div>
-</header> -->
+
 <nav class="navbar navbar-dark bg-dark" aria-label="Dark offcanvas navbar">
     <div class="container-fluid">
       <p class="navbar-brand" >NEXT</p>
@@ -108,9 +215,9 @@
             <li class="nav-item">
               <a style='color: black;' class="nav-link active" aria-current="page" href="{{ route('adminhome') }}">Home</a>
             </li>
-            <!-- <li class="nav-item">
-              <a style='color: black;' class="nav-link" href="#">Link</a>
-            </li> -->
+            <li class="nav-item">
+              <a style='color: black;' class="nav-link" href="{{ route('addAdmin') }}">Add New Admin</a>
+            </li>
             <li class="nav-item dropdown">
               <a style='color: black;' class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Account
@@ -192,6 +299,7 @@
         </ul> -->
       </div>
     </nav>
+    
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -208,9 +316,19 @@
         </div> -->
       </div>
 
-      
+      <h4 class="h4">Inventory Statistics</h4>
+      <!-- pichart html code  -->
+      <hr>
+      <div id="chartPie" style="height: 300px ; "></div>
+      <hr>
+      <div id="chartPie2" style="height: 300px; "></div>
+     
+      <br>
+<!-- code ended -->
+<hr>
 
-      
+<h4 class="h4">Inventory Details</h4>
+<hr>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
@@ -231,6 +349,7 @@
             <?php
             $counter=1;
             ?>
+         
           @foreach($inventory_details as $inventory_details)
                                   <tr>
                                         <td >
@@ -288,5 +407,7 @@
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
-  </body>
+      
+    </body>
+
 </html>

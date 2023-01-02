@@ -15,7 +15,7 @@ class Product extends Model
 
 
     protected $fillable = [
-        'productId','productName','price','description','material','picture','userType','categoryId','created_at','updated_at'
+        'productId','productName','price','description','material','pic2','pic3','pic4','picture','userType','categoryId','created_at','updated_at'
     ];
 
     

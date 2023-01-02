@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>NEXT</title>
+    <title>ZEST</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="{{url('css/home.css')}}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"/>
@@ -24,7 +24,7 @@
       <div class="container">
         <div class="navbar">
           <div class="logo">
-            <img src="{{url('/images/new-next-gold-logo.svg')}}" alt="RedStore Logo" width="125px" />
+            <img src="{{url('/images/logo.svg')}}" alt="RedStore Logo" width="125px" />
           </div>
           <nav>
             <ul id="MenuItems">
@@ -36,7 +36,11 @@
               <li><a href="">Contact</a></li>
               @if (Route::has('login'))
               @auth
+              @if(Auth::user()->is_admin===1)
+              <li><a href="{{ route('adminhome') }}">Account</a></li>
+              @else
               <li><a href="{{ url('/home') }}">Account</a></li>
+              @endif
 			  <li><a href="{{ route('logout') }}">Sign Out</a></li>
               @else
               <li><a href="{{ route('login') }}">Account</a></li>

@@ -89,7 +89,7 @@
 </header> -->
 <nav class="navbar navbar-dark bg-dark" aria-label="Dark offcanvas navbar">
     <div class="container-fluid">
-      <p class="navbar-brand" >NEXT</p>
+      <p class="navbar-brand" >ZEST</p>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -106,6 +106,9 @@
             <!-- <li class="nav-item">
               <a style='color: black;' class="nav-link" href="#">Link</a>
             </li> -->
+            <li class="nav-item">
+              <a style='color: black;' class="nav-link" href="{{ route('addAdmin') }}">Add New Admin</a>
+            </li>
             <li class="nav-item dropdown">
               <a style='color: black;' class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Account
@@ -147,6 +150,12 @@
             <a class="nav-link" href="{{ route('showCustomers') }}">
               <span data-feather="users" class="align-text-bottom"></span>
               Registered Customers
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('showOrders') }}">
+              <span data-feather="users" class="align-text-bottom"></span>
+              Orders Received
             </a>
           </li>
           
@@ -278,6 +287,27 @@
     <input type="file" class="form-control" name="picture"  id="picture" >
     @if ($errors->has('picture'))
     <span class="text-danger">{{ $errors->first('picture') }}</span>
+    @endif
+  </div>
+  <div class="col-md-2">
+    <label for="pic2" class="form-label">Picture 2</label>
+    <input type="file" class="form-control" name="pic2"  id="pic2" >
+    @if ($errors->has('pic2'))
+    <span class="text-danger">{{ $errors->first('pic2') }}</span>
+    @endif
+  </div>
+  <div class="col-md-2">
+    <label for="pic3" class="form-label">Picture 3</label>
+    <input type="file" class="form-control" name="pic3"  id="pic3" >
+    @if ($errors->has('pic3'))
+    <span class="text-danger">{{ $errors->first('pic3') }}</span>
+    @endif
+  </div>
+  <div class="col-md-2">
+    <label for="pic4" class="form-label">Picture 4</label>
+    <input type="file" class="form-control" name="pic4"  id="pic4" >
+    @if ($errors->has('pic4'))
+    <span class="text-danger">{{ $errors->first('pic4') }}</span>
     @endif
   </div>
   <div class="col-12">
